@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Deep space background */
+    --foreground: 210 40% 95%;
+    
+    /* Switch indicator color */
+    --switch-indicator: 240 30% 5%;
+    --silder-indicator: 240 30% 5%;
+
+    /* Cards with glassmorphism */
+    --card: 240 25% 8%;
+    --card-foreground: 210 40% 95%;
+
+    --popover: 240 25% 10%;
+    --popover-foreground: 210 40% 95%;
+
+    /* Cosmic purple primary */
+    --primary: 270 70% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Deep space secondary */
+    --secondary: 240 30% 15%;
+    --secondary-foreground: 210 40% 95%;
+
+    --muted: 240 20% 15%;
+    --muted-foreground: 220 15% 55%;
+
+    /* Cyan accent for highlights */
+    --accent: 190 90% 50%;
+    --accent-foreground: 240 30% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 20% 20%;
+    --input: 240 20% 15%;
+    --ring: 270 70% 60%;
+
+    --radius: 0.75rem;
+
+    /* Custom portal colors */
+    --portal-core: 270 80% 55%;
+    --portal-glow: 190 100% 60%;
+    --portal-ring: 280 100% 70%;
+    
+    /* Neon glow effects */
+    --neon-purple: 270 100% 65%;
+    --neon-cyan: 190 100% 65%;
+    --neon-pink: 330 100% 65%;
+    
+    /* Gradient definitions */
+    --gradient-cosmic: linear-gradient(135deg, hsl(270 50% 20%) 0%, hsl(240 30% 5%) 50%, hsl(200 50% 15%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(240 25% 12%) 0%, hsl(240 25% 8%) 100%);
+    --gradient-portal: radial-gradient(circle, hsl(var(--portal-core)) 0%, hsl(var(--portal-glow) / 0.3) 50%, transparent 70%);
+
+    --sidebar-background: 240 25% 8%;
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 270 70% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 30% 15%;
+    --sidebar-accent-foreground: 210 40% 95%;
+    --sidebar-border: 240 20% 20%;
+    --sidebar-ring: 270 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-space antialiased;
+    background-image: 
+      var(--gradient-cosmic),
+      url('/aion2-bg.png');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    background-blend-mode: multiply;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
+    box-shadow: 
+      0 0 30px hsl(var(--portal-core) / 0.1),
+      inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .neon-border {
+    @apply relative;
+    box-shadow: 
+      0 0 10px hsl(var(--neon-purple) / 0.3),
+      0 0 20px hsl(var(--neon-cyan) / 0.2),
+      inset 0 0 10px hsl(var(--neon-purple) / 0.1);
+  }
+
+  .neon-text {
+    text-shadow: 
+      0 0 10px hsl(var(--neon-cyan) / 0.8),
+      0 0 20px hsl(var(--neon-cyan) / 0.5),
+      0 0 40px hsl(var(--neon-purple) / 0.3);
+  }
+
+  .rift-open-glow {
+    animation: rift-pulse 1.5s ease-in-out infinite;
+    box-shadow:
+      0 0 20px hsl(var(--neon-cyan) / 0.8),
+      0 0 40px hsl(var(--neon-purple) / 0.6),
+      0 0 60px hsl(var(--neon-pink) / 0.4);
+  }
+}
+
+@layer utilities {
+  .animate-portal-idle {
+    animation: portal-idle 8s ease-in-out infinite;
+  }
+
+  .animate-portal-active {
+    animation: portal-active 1s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+}
+
+@keyframes portal-idle {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1) blur(0px);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: brightness(1.1) blur(0.5px);
+  }
+}
+
+@keyframes portal-active {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1.2) hue-rotate(0deg);
+    box-shadow: 
+      0 0 40px hsl(190 100% 60% / 0.8),
+      0 0 80px hsl(270 100% 65% / 0.6),
+      0 0 120px hsl(330 100% 65% / 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.5) hue-rotate(10deg);
+    box-shadow: 
+      0 0 60px hsl(190 100% 70% / 1),
+      0 0 100px hsl(270 100% 70% / 0.8),
+      0 0 150px hsl(330 100% 70% / 0.6);
+  }
+}
+
+@keyframes rift-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
